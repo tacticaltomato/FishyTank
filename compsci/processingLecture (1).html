@@ -1,0 +1,168 @@
+<html>
+	<head>
+		<title>FishTank 2.0</title>
+		<script src="http://cloud.github.com/downloads/processing-js/processing-js/processing-1.4.1.min.js"></script>
+		<script type="text/processing" data-processing-target="mycanvas">
+        // Declare and contruct two objects (h1, h2) from the class HorizontalLine
+
+        // Declare and contruct two objects (h1, h2) from the class HorizontalLine
+
+        HorizontalLine slowLine = new HorizontalLine(20, 2.0);
+
+        HorizontalLine fastLine = new HorizontalLine(50, 2.5);
+
+        Fish randomFish = new Fish(200, 100);
+
+        int WINDOW_WIDTH = 600;
+        int WINDOW_HEIGHT = 600;
+
+        int REFRESH_RATE_PER_SECOND = 30;
+        var BLUE = color(94, 155, 255);
+        //runs once at the start of the program
+        void setup()
+        {
+
+          size(WINDOW_WIDTH, WINDOW_HEIGHT);
+
+          frameRate(REFRESH_RATE_PER_SECOND);//how often per second the draw function is called
+
+        }
+
+
+        //called repeatedly
+        void draw() {
+
+          background(BLUE);
+					noStroke();
+					fill(94, 255, 123)
+					ellipse(25,510,25,200);
+					ellipse(75,510,25,200);
+					ellipse(125,510,25,200);
+					ellipse(175,510,25,200);
+					ellipse(225,510,25,200);
+					ellipse(275,510,25,200);
+					ellipse(325,510,25,200);
+					ellipse(375,510,25,200);
+					ellipse(575,510,25,200);
+					fill(104,104,104)
+					ellipse(475,510,170,175);
+					fill(76,58,26)
+					ellipse(520,510,10,10);
+					ellipse(500,490,10,10);
+					ellipse(470,440,10,10);
+					ellipse(460,578,10,10);
+					ellipse(435,575,10,10);
+
+          slowLine.updateAndRedraw();
+
+          fastLine.updateAndRedraw();
+
+          randomFish.drawFish();
+
+					randomFish.swim();
+
+        }
+
+
+
+        class HorizontalLine {
+
+          //attributes
+          float ypos, speed;
+
+          //constructor
+          HorizontalLine (float y, float s) {
+
+            ypos = y;
+
+            speed = s;
+
+          }
+
+          void updateAndRedraw() {
+          	update();
+          	drawLine();
+          }
+
+          void update()
+          {
+
+            ypos += speed;
+
+            if (ypos > height)
+            {
+
+              ypos = 0;
+
+            }
+
+
+          }
+
+          void drawLine()
+          {
+          	 line(0, ypos, width, ypos);
+		  }
+
+        }
+
+        class Fish
+        {
+        	//attributes
+        	var centerX, centerY, bodyHeight, bodyLength, tailHeight, tailWidth, bodyColor;
+
+        	//constructor
+        	Fish(var bh, var bl)
+        	{
+        		//attributes on the left, parameters on the right
+        		bodyHeight = 74;
+        		bodyLength = 118;
+        		tailHeight = bodyLength/4;
+        		tailWidth = bodyHeight/4;
+        		bodyColor = color(random(30,255),random(30,255), random(30,120));
+        		centerX = random(0, 360);
+        		centerY = random(10, 360);
+
+        	}
+
+        	void drawFish()
+        	{
+        		fill(bodyColor);
+        		// body
+        		ellipse(centerX, centerY, bodyLength, bodyHeight);
+        		// tail
+        		var tailWidth = bodyLength/4;
+        		var tailHeight = bodyHeight/2;
+        		triangle(centerX-bodyLength/2, centerY,
+        		         centerX-bodyLength/2-tailWidth, centerY-tailHeight,
+        		         centerX-bodyLength/2-tailWidth, centerY+tailHeight);
+        		// eye
+        		fill(33, 33, 33);
+        		ellipse(centerX+bodyLength/4, centerY, bodyHeight/5, bodyHeight/5);
+
+
+
+        	}
+			void swim() {
+				move();
+				}
+			void move() {
+					centerX += 3;
+					if (centerX > width)
+					{
+						centerX = 0
+					}
+
+
+
+			}
+
+
+        }
+        </script>
+    </head>
+
+    <body>
+		<canvas id="mycanvas"></canvas>
+	</body>
+</html>
