@@ -7,26 +7,63 @@
 
         // Declare and contruct two objects (h1, h2) from the class HorizontalLine
 
+				Jellyfish randomJellyfish = new Jellyfish(100, 100);
 
         Fish randomFish = new Fish(200, 100);
-				Jellyfish randomJellyfish = new Jellyfish(100,100);
-				Kelp newKelp = new Kelp(100,100);
-				Ground newGround = new Ground(100,100);
-				Rock newRock = new Rock(100,100);
+
+				Crab randomCrab = new Crab(100, 100);
+
+				Ground newground = new Ground(100, 100);
+
+				Kelp newkelp = new Kelp(100, 100);
+
+				Rock newrock = new Rock(100, 100);
 
         int WINDOW_WIDTH = 600;
         int WINDOW_HEIGHT = 600;
 
         int REFRESH_RATE_PER_SECOND = 30;
-        var BLUE = color(94, 155, 255);
+        var BLUE = color(89, 216, 255);
         //runs once at the start of the program
-        void setup()
+
+				ArrayList<Fish> fishList;
+
+				ArrayList<JellyFishh> jellyfishList;
+
+				ArrayList<Crab> crabList;
+
+				void setup()
         {
+					fishList = new ArrayList<Fish>();
+
+					var numberOfFish = random(1,5);
+
+					for(var i = 0; i < numberOfFish; i++)
+					{
+							fishList.add(new Fish(100,100));
+					}
+
+					jellyfishList = new ArrayList<JellyFishh>();
+
+					var numberOfJellies = random(1,5);
+
+					for(var i = 0; i < numberOfJellies; i++)
+					{
+							jellyfishList.add(new Jellyfish(100, 200))
+					}
+
+					crabList = new ArrayList<Crab>();
+
+					var numberOfCrabs = random(1,3);
+
+					for(var i = 0; i < numberOfCrabs; i++)
+					{
+						crabList.add(new Crab(200, 100))
+					}
 
           size(WINDOW_WIDTH, WINDOW_HEIGHT);
 
           frameRate(REFRESH_RATE_PER_SECOND);//how often per second the draw function is called
-
         }
 
 
@@ -34,7 +71,12 @@
         void draw() {
 
           background(BLUE);
-					noStroke();
+
+					newground.drawGround();
+
+					newkelp.drawKelp();
+
+					newrock.drawRock();
 
           randomFish.drawFish();
 
@@ -44,15 +86,148 @@
 
 					randomJellyfish.swimJ();
 
-					newGround.drawGround();
+					randomCrab.drawCrab();
 
-					newRock.drawRock();
+					randomCrab.crabSwim();
 
-					newKelp.drawKelp();
+					for(var i = 0; i < fishList.size(); i++)
+					{
+						Fish currentFish = fishList.get(i);
+						currentFish.drawFish();
+						currentFish.swim();
+					}
 
+					for(var i = 0; i < jellyfishList.size(); i++)
+					{
+						JellyFishh currentJelly = jellyfishList.get(i);
+						currentJelly.drawJelly();
+						currentJelly.swimJ();
+					}
+
+					for(var i = 0; i < crabList.size(); i++)
+					{
+						Crab currentCrab = crabList.get(i);
+						currentCrab.drawCrab();
+						currentCrab.crabSwim();
+					}
 
         }
 
+				class Ground
+				{
+					var groundWidth, groundHeight, groundPosX, groundPosY, groundColor;
+
+					Ground(var bh, var bl)
+					{
+						groundWidth = 600;
+						groundHeight = 35;
+						groundPosX = 0;
+						groundPosY = 565;
+						groundColor = color(206, 140, 53);
+					}
+					void drawGround()
+					{
+						noStroke();
+						fill(groundColor);
+						rect(groundPosX, groundPosY, groundWidth, groundHeight);
+					}
+				}
+
+				class Kelp
+				{
+					var kelpWidth, kelpHeight, kelpPosY, kelpColor;
+
+					Kelp(var bh, var bl)
+					{
+						kelpWidth = 26;
+						kelpHeight = 136;
+						kelpPosY = 520;
+						kelpColor = color(57, 168, 45);
+					}
+
+					void drawKelp()
+					{
+						noStroke();
+						fill(kelpColor);
+						ellipse(0, kelpPosY, kelpWidth, kelpHeight);
+						ellipse(46, kelpPosY, kelpWidth, kelpHeight);
+						ellipse(96, kelpPosY, kelpWidth, kelpHeight);
+						ellipse(146, kelpPosY, kelpWidth, kelpHeight);
+						ellipse(196, kelpPosY, kelpWidth, kelpHeight);
+						ellipse(246, kelpPosY, kelpWidth, kelpHeight);
+						ellipse(296, kelpPosY, kelpWidth, kelpHeight);
+						ellipse(346, kelpPosY, kelpWidth, kelpHeight);
+						ellipse(396, kelpPosY, kelpWidth, kelpHeight);
+						ellipse(446, kelpPosY, kelpWidth, kelpHeight);
+						ellipse(496, kelpPosY, kelpWidth, kelpHeight);
+						ellipse(546, kelpPosY, kelpWidth, kelpHeight);
+						ellipse(596, kelpPosY, kelpWidth, kelpHeight);
+					}
+				}
+
+				class Rock
+				{
+					var RockPosX, RockPosY, RockWidth, RockHeight, RockColor;
+
+					Rock(var bh, var bl)
+					{
+						RockPosX = random(0,600);
+						RockPosY = random(560,585);
+						RockWidth = random(20,45);
+						RockHeight = random(20,45);
+						rockColor = color(151, 160, 151);
+					}
+
+					void drawRock()
+					{
+						fill(rockColor);
+						ellipse(RockPosX, RockPosY, RockWidth, RockHeight);
+					}
+				}
+
+				class Crab
+				{
+					var centerX3, centerY3, bodyLength4, bodyHeight4, bodyLength5, bodyHeight5, krabbyColor;
+
+					Crab(var bh, var bl)
+					{
+						centerX3 = random(0,600);
+				    centerY3 = random(540,575);
+				    bodyLength4 = 100;
+				    bodyHeight4 = 58;
+				    bodyLength5 = 50;
+				    bodyHeight5 = 50;
+				    krabbyColor = color(255, 89, 0);
+					}
+					void drawCrab()
+					{
+						fill(krabbyColor);
+						ellipse(centerX3, centerY3, bodyLength4, bodyHeight4);
+						triangle(centerX3 + 75, centerY3 - 24, centerX3 + 53, centerY3 - 49, centerX3 + 21, centerY3 + 5);
+						triangle(centerX3 - 49, centerY3 - 52, centerX3 - 73, centerY3 + -31, centerX3 - 24, centerY3 + 3);
+						ellipse(centerX3 + 68, centerY3 - 39, 25, 25);
+						ellipse(centerX3 - 64, centerY3 - 43, 25, 25);
+						rect(centerX3 - 19, centerY3 - 45, 9, 38); //eyestalk 1
+						rect(centerX3 + 8, centerY3 - 45, 9, 38); //eyestalk 2
+						rect(centerX3 - 31, centerY3 - 7, 9, 38);
+						rect(centerX3 + 25, centerY3 - 7, 9, 38);
+						fill(0, 0, 0);
+						ellipse(centerX3 - 15, centerY3 - 45, 15, 15);
+						ellipse(centerX3 + 13, centerY3 - 45, 15, 15);
+					}
+					void crabSwim()
+					{
+						moveCrab();
+					}
+					void moveCrab()
+					{
+						centerX3 += 3;
+						if (centerX3 - 75 > width)
+						{
+							centerX3 = -40;
+						}
+					}
+				}
 
 				class Jellyfish
 				{
@@ -67,40 +242,40 @@
         		girth = 80;
         		centerX2 = random(0, 360);
         		centerY2 = random(0, 360);
+						fillJelly = color(random(220,255), random(220,255), random(220,255));
 						centerColors = color(random(0, 255), random(0, 255), random(200, 255));
 						centerColors2 = color(random(0, 255), random(0, 255), random(200, 255));
 					}
 
 					void drawJelly()
 					{
-						fill(255, 255, 255);
+						fill(fillJelly);
     				ellipse(centerX2, centerY2, girth, girth);
     				fill(centerColors);
 						ellipse(centerX2, centerY2, girth - 15, girth - 15);
 						fill(centerColors2);
 						ellipse(centerX2, centerY2, girth - 30, girth - 30);
-						fill(255, 255, 255);
+						fill(fillJelly);
 						noStroke();
 						ellipse(centerX2 - 25, centerY2 + 66, girth/6, girth);
 						ellipse(centerX2, centerY2 + 73, girth/6, girth);
 						ellipse(centerX2 + 25, centerY2 + 62, girth/6, girth);
 					}
+
 					void swimJ() {
 						move2();
 						}
 					void move2() {
-							centerX2 += 3;
-							if (centerX2 > width)
-							{
-								centerX2 = 0
-							}
+						centerX2 += 3;
+						if (centerX2 - 75 > width) {
+							centerX2 = -95;
+						}
+					}
 				}
-}
 
         class Fish
-        {
-        	//attributes
-        	var centerX, centerY, bodyHeight, bodyLength, tailHeight, tailWidth, bodyColor;
+				{
+					var centerX, centerY, bodyHeight, bodyLength, tailHeight, tailWidth, bodyColor;
 
         	//constructor
         	Fish(var bh, var bl)
@@ -112,13 +287,13 @@
         		tailWidth = bodyHeight/4;
         		bodyColor = color(random(30,255),random(30,255), random(30,120));
         		centerX = random(0, 360);
-        		centerY = random(10, 360);
+        		centerY = random(0, 360);
 
         	}
 
         	void drawFish()
-        	{
-        		fill(bodyColor);
+					{
+						fill(bodyColor);
         		// body
         		ellipse(centerX, centerY, bodyLength, bodyHeight);
         		// tail
@@ -130,99 +305,22 @@
         		// eye
         		fill(33, 33, 33);
         		ellipse(centerX+bodyLength/4, centerY, bodyHeight/5, bodyHeight/5);
+					}
 
-
-
-        	}
-			void swim() {
-				move();
+					void swim() {
+						move();
+					}
+					void move()
+					{
+						centerX += 3;
+						if (centerX - 100 > width)
+						{
+							centerX = -40;
+							// centerY = random(50, 500); should we add this?
+						}
+					}
 				}
-			void move() {
-					centerX += 3;
-					if (centerX > width)
-					{
-						centerX = 0
-					}
 
-
-
-			}
-
-
-
-
-        }
-				class Ground
-					{
-						var groundWidth, groundHeight, groundPosX, groundPosY, groundColor;
-
-						Ground(var bh, var bl)
-						{
-							groundWidth = 600;
-							groundHeight = 35;
-							groundPosX = 0;
-							groundPosY = 565;
-							groundColor = color(206, 140, 53);
-						}
-						void drawGround()
-						{
-							noStroke();
-							fill(groundColor);
-							rect(groundPosX, groundPosY, groundWidth, groundHeight);
-						}
-					}
-
-					class Kelp
-					{
-						var kelpWidth, kelpHeight, kelpPosY, kelpColor;
-
-						Kelp(var bh, var bl)
-						{
-							kelpWidth = 26;
-							kelpHeight = 136;
-							kelpPosY = 520;
-							kelpColor = color(57, 168, 45);
-						}
-
-						void drawKelp()
-						{
-							noStroke();
-							fill(kelpColor);
-							ellipse(0, kelpPosY, kelpWidth, kelpHeight);
-							ellipse(46, kelpPosY, kelpWidth, kelpHeight);
-							ellipse(96, kelpPosY, kelpWidth, kelpHeight);
-							ellipse(146, kelpPosY, kelpWidth, kelpHeight);
-							ellipse(196, kelpPosY, kelpWidth, kelpHeight);
-							ellipse(246, kelpPosY, kelpWidth, kelpHeight);
-							ellipse(296, kelpPosY, kelpWidth, kelpHeight);
-							ellipse(346, kelpPosY, kelpWidth, kelpHeight);
-							ellipse(396, kelpPosY, kelpWidth, kelpHeight);
-							ellipse(446, kelpPosY, kelpWidth, kelpHeight);
-							ellipse(496, kelpPosY, kelpWidth, kelpHeight);
-							ellipse(546, kelpPosY, kelpWidth, kelpHeight);
-							ellipse(596, kelpPosY, kelpWidth, kelpHeight);
-						}
-					}
-
-					class Rock
-					{
-						var RockPosX, RockPosY, RockWidth, RockHeight, RockColor;
-
-						Rock(var bh, var bl)
-						{
-							RockPosX = random(0,600);
-							RockPosY = random(560,585);
-							RockWidth = random(20,45);
-							RockHeight = random(20,45);
-							rockColor = color(151, 160, 151);
-						}
-
-						void drawRock()
-						{
-							fill(rockColor);
-							ellipse(RockPosX, RockPosY, RockWidth, RockHeight);
-						}
-					}
         </script>
     </head>
 
